@@ -14,7 +14,7 @@ tasks:
       cbsh -c "source ./scripts/dbSetup.nu; dbSetup $COUCHBASE_DEFAULT_BUCKET $COUCHBASE_DEFAULT_SCOPE $COUCHBASE_DEFAULT_COLLECTION"
       bundle install
 
-# PreInstalled Couchbase and Java Extension
+# PreInstalled Couchbase and Python Extension
 vscode:
     extensions:
         - "couchbase.vscode-couchbase"
