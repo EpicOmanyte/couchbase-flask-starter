@@ -1,6 +1,6 @@
 import logging
 from flask import Flask
-from app.config import Config
+from config import Config
 from couchbase.cluster import Cluster
 from couchbase.auth import PasswordAuthenticator
 from couchbase.options import ClusterOptions
