@@ -35,6 +35,7 @@ Make sure you have the following installed:
 ```
 git clone https://github.com/couchbase-starter-kit/couchbase-flask-starter.git
 cd couchbase-flask-starter
+```
 
 ### Install Dependencies
 
