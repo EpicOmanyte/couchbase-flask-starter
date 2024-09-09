@@ -1,5 +1,5 @@
 {
-    "name": "Couchbase Ruby Workspace",
+    "name": "Couchbase Python Workspace",
     "image": "laurentdoguin/workspace-couchbase-python-3.11",
     "customizations": {
         "vscode": {
