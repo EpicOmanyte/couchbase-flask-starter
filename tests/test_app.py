@@ -9,6 +9,7 @@ def app():
     app = create_app()
     app.config.update({
         "TESTING": True,
+        "COUCHBASE_DEFAULT_BUCKET": "test_bucket",
     })
     yield app
 
@@ -30,7 +31,10 @@ def couchbase_setup(app):
     yield collection
     
     # Cleanup after tests
-    collection.remove('test_doc')
+    try:
+        collection.remove('test_doc')
+    except DocumentNotFoundException:
+        pass
 
 def test_index(client):
     response = client.get("/")

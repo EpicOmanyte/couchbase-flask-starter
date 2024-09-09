@@ -1,13 +1,4 @@
-import logging
-from flask import Flask
-from app.config import Config
-from couchbase.cluster import Cluster
-from couchbase.auth import PasswordAuthenticator
-from couchbase.options import ClusterOptions
-from couchbase.exceptions import CouchbaseException
-
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+from couchbase.management.buckets import CreateBucketSettings
 
 def create_app():
     app = Flask(__name__)
@@ -20,7 +11,23 @@ def create_app():
             app.config['COUCHBASE_PASSWORD']
         )
         cluster = Cluster(app.config['COUCHBASE_CONNECTION_STRING'], ClusterOptions(auth))
-        bucket = cluster.bucket(app.config['COUCHBASE_DEFAULT_BUCKET'])
+        
+        # Try to get the bucket, create it if it doesn't exist
+        try:
+            bucket = cluster.bucket(app.config['COUCHBASE_DEFAULT_BUCKET'])
+        except CouchbaseException as e:
+            if isinstance(e, BucketNotFoundException):
+                # Create the bucket
+                bucket_manager = cluster.buckets()
+                bucket_manager.create_bucket(CreateBucketSettings(
+                    name=app.config['COUCHBASE_DEFAULT_BUCKET'],
+                    bucket_type='couchbase',
+                    ram_quota_mb=100
+                ))
+                bucket = cluster.bucket(app.config['COUCHBASE_DEFAULT_BUCKET'])
+            else:
+                raise
+
         app.couchbase_collection = bucket.scope(app.config['COUCHBASE_DEFAULT_SCOPE']).collection(app.config['COUCHBASE_DEFAULT_COLLECTION'])
         
         # Test the connection
