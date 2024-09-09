@@ -1,0 +1,4 @@
+Flask
+couchbase
+python-dotenv
+pytest
