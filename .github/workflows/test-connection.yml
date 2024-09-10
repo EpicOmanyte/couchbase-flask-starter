@@ -21,6 +21,7 @@ jobs:
     steps:
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v4
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11'
