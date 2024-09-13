@@ -34,5 +34,5 @@ jobs:
           COUCHBASE_DEFAULT_SCOPE: ${{ secrets.COUCHBASE_DEFAULT_SCOPE || '_default' }}
           COUCHBASE_DEFAULT_COLLECTION: ${{ secrets.COUCHBASE_DEFAULT_COLLECTION || '_default' }}
         run: |
-          print(os.environ['COUCHBASE_DEFAULT_BUCKET'])
+          echo "$COUCHBASE_DEFAULT_BUCKET"
           pytest tests/test_app.py
