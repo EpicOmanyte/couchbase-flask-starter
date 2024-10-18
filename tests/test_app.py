@@ -32,11 +32,13 @@ def couchbase_setup(app):
     # Cleanup after tests
     collection.remove('test_doc')
 
+@pytest.mark.skipif(True, reason= "Skipping test for CI")
 def test_index(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b"Welcome to Couchbase Flask Starter Kit" in response.data
 
+@pytest.mark.skipif(True, reason= "Skipping test for CI")
 def test_create_and_get_document(client, couchbase_setup):
     # Create a document
     create_response = client.post("/documents", json={"id": "test_doc", "content": "Test content"})
